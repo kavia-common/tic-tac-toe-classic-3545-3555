@@ -1,104 +1,256 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Provided light theme colors */
+  --primary: #3b82f6;
+  --secondary: #64748b;
+  --success: #06b6d4;
+  --error: #EF4444;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --ttt-border: #e5e7eb;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  /* Fall back to existing dark scheme for toggle completeness */
+  --primary: #2563eb;
+  --secondary: #64748b;
+  --success: #06b6d4;
+  --error: #EF4444;
+  --background: #1a1a1a;
+  --surface: #23272f;
+  --text: #fafcff;
+  --ttt-border: #374151;
+}
+
+body, html {
+  background: var(--background);
+  color: var(--text);
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .App-header {
-  background-color: var(--bg-secondary);
+  flex: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  background: var(--background);
+  transition: background 0.3s, color 0.3s;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+/* Title and logo */
+.ttt-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--primary);
+  margin: 1rem 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.ttt-logo {
+  width: 44px;
+  height: 44px;
+  vertical-align: middle;
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.08));
+}
+
+.ttt-game-area {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 22px;
+  box-shadow: 0 4px 24px 0 rgba(59, 130, 246, 0.06), 0 1.5px 10px rgba(100,116,139,0.09);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3rem;
+  min-width: 290px;
+}
+
+.ttt-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 12px auto;
+  border-radius: 12px;
+}
+
+.ttt-board-row {
+  display: flex;
+}
+
+.ttt-square {
+  width: 76px;
+  height: 76px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.6rem;
+  font-weight: 600;
+  border: 2.2px solid var(--ttt-border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  margin: 0.22rem;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.18s, border 0.23s, color 0.18s, box-shadow 0.2s;
+  user-select: none;
+  box-shadow: none;
+}
+
+.ttt-square-filled {
+  cursor: not-allowed;
+  color: var(--secondary);
+}
+
+.ttt-square-highlight {
+  border-color: var(--success);
+  background: linear-gradient(90deg, var(--surface) 60%, var(--success) 30%);
+  color: var(--success);
+}
+
+.ttt-square:active:not(:disabled) {
+  background: var(--primary);
+  color: #fff;
+}
+
+.ttt-status {
+  font-size: 1.22rem;
+  margin-bottom: 0.7rem;
+  margin-top: -0.2rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.ttt-status-player {
+  font-size: 1.34em;
+  font-weight: 800;
+  color: var(--primary);
+  padding-left: 0.3em;
+}
+
+.ttt-status-draw {
+  color: var(--secondary);
+  background: none;
+}
+.ttt-status-win {
+  color: var(--success);
+}
+.ttt-status-turn {
+  color: var(--primary);
+}
+
+.ttt-reset-btn {
+  background: var(--primary);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 12px 38px;
+  margin: 0.7rem 0 0.2rem 0;
+  cursor: pointer;
+  box-shadow: 0 2px 12px 0 rgba(59, 130, 246, 0.09);
+  transition: background 0.16s, color 0.18s, box-shadow 0.2s;
+}
+
+.ttt-reset-btn:hover, .ttt-reset-btn:focus {
+  background: var(--success);
+  color: #fff;
 }
 
 .theme-toggle {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  top: 22px;
+  right: 28px;
+  background-color: var(--secondary);
+  color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 10px 19px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+  z-index: 2;
 }
-
 .theme-toggle:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+  background-color: var(--primary);
+  opacity: 0.94;
 }
-
 .theme-toggle:active {
   transform: translateY(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ttt-footer {
+  margin-top: 1.1rem;
+  text-align: center;
+  font-size: 0.93em;
+  color: var(--secondary);
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
+/* Visually hidden for accessibility */
+.ttt-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  border: 0;
+  padding: 0;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .ttt-game-area {
+    padding: 1.2rem;
+    min-width: 188px;
+    width: 99vw;
+    max-width: 450px;
+    border-radius: 12px;
+  }
+  .ttt-title {
+    font-size: 1.25rem;
+    gap: 0.5rem;
+  }
+  .ttt-logo {
+    width: 32px;
+    height: 32px;
+  }
+  .ttt-board {
+    scale: 0.92;
+  }
+  .ttt-square {
+    width: 48px;
+    height: 48px;
+    font-size: 1.24rem;
+  }
   .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
+    padding: 7px 14px;
     font-size: 12px;
+    top: 8px;
+    right: 12px;
+  }
+  .ttt-reset-btn {
+    font-size: 0.99rem;
+    padding: 7px 21px;
+    margin-top: 0.18rem;
   }
 }
